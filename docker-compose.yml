@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  openwebui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USE_CUDA: "false"
+        USE_OLLAMA: "false"
+        OLLAMA_BASE_URL: "/ollama"
+    container_name: openwebui
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    volumes:
+      - open-webui:/data
+      - ./config:/config
+      - open-webui:/app/backend/data
+    environment:
+      - WEBUI_DB=/data/webui.db
+      - WEBUI_HOST=0.0.0.0
+      - WEBUI_PORT=8080
+      - WEBUI_SECRET_KEY_FILE=/config/webui_secret_key
+      - HF_HUB_OFFLINE=1
+
+volumes:
+  open-webui: {}
