@@ -18,6 +18,8 @@ services:
       - ./config:/config
       - open-webui:/app/backend/data
     environment:
+      - ENABLE_OLLAMA_API=False
+      - WEBUI_NAME=compusrv
       - WEBUI_DB=/data/webui.db
       - WEBUI_HOST=0.0.0.0
       - WEBUI_PORT=8080
